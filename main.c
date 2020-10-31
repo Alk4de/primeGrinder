@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-
 int *sieve(int limit);
 
 int main( int argc, char *argv[] ) {
@@ -28,14 +27,18 @@ int main( int argc, char *argv[] ) {
 int *sieve(int limit) {
 
   int *primes = calloc(limit, sizeof(int));
-
+  
+  /* Set all numbers above 2 to be possible primes */
   for (int i = 2; i < limit; i++) {
     primes[i] = 1;
   }
-
+  
+  /* For each number, if it is a prime, set all multiples to not be primes */
   for (int i = 2; i < limit; i++) {
-    for (int j = 2*i; j < limit; j += i) {
-      primes[j] = 0;
+    if (primes[i] == 1) {
+      for (int j = 2*i; j < limit; j += i) {
+        primes[j] = 0;
+      }
     }
   }
 
